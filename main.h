@@ -6,8 +6,11 @@
 #include <iostream>
 
 #include "interface.h"
+#include "window.h"
 #include "rendering.h"
 #include "shaders.h"
 #include "geometry.h"
+
+GLFWwindow* window;
 
 #endif
