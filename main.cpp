@@ -3,7 +3,7 @@
 int main(){
 	if(!glfwInit())
 		return -1;
-	createWindow();
+	initialize();
 	if(!window){
 		std::cout << "Window not initialized";
 		glfwTerminate();
