@@ -20,7 +20,7 @@ std::map<std::string, GLuint> valueMap = {
 };
 			
 //Initialize the window
-void createWindow(int width, int height){
+GLFWwindow* createWindow(int width, int height, GLFWwindow* window){
 	window = glfwCreateWindow(width, height, "Frankengraphics", NULL, NULL);
 	if(window == NULL){
 		std::cout << "failed to create GLFW window" << std::endl;
@@ -28,15 +28,16 @@ void createWindow(int width, int height){
 	}
 	glfwMakeContextCurrent(window);
 	glViewport(0, 0, width, height);
+	return window;
 }
 
-void createWindow(){
-	createWindow(DEFAULT_WIDTH, DEFAULT_HEIGHT);
+GLFWwindow* createWindow(GLFWwindow* window){
+	return createWindow(DEFAULT_WIDTH, DEFAULT_HEIGHT, window);
 }
 
 //Reads in the settings from the config, writing them to a context map for further initializing values.
 //Should only be done once, when application starts.
-void initialize(){
+GLFWwindow* initializeWindow(GLFWwindow* window){
 	int width = DEFAULT_WIDTH;
        	int height = DEFAULT_HEIGHT;	
 	std::string filename = "./config.ini";
@@ -70,5 +71,5 @@ void initialize(){
 	}else{
 		std::cout << "Config not found";
 	}
-	createWindow(width, height);
+	return createWindow(width, height, window);
 }
