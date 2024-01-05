@@ -15,4 +15,8 @@ extern unsigned int geometryShader;
 
 extern unsigned int shaderProgram;
 
+unsigned int initializeVertexShader();
+unsigned int initializeFragmentShader();
+unsigned int initializeVertexBuffer();
+
 #endif

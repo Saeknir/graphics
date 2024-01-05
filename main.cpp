@@ -13,9 +13,18 @@ int main(){
 	unsigned int geometryShader;
 	GLFWwindow* window;
 
+
 	if(!glfwInit())
 		return -1;
-	window = initializeWindow(window);
+	window = initializeWindow();
+	GLenum err = glewInit();
+	if(GLEW_OK != err){
+		std::cout << "Error: GLEW failed to initialize.";
+		return -1;
+	}
+	vertexBuffer = initializeVertexBuffer(); 
+	fragmentShader = initializeFragmentShader();
+	vertexShader = initializeVertexShader();
 
 	if(!window){
 		std::cout << "Window not initialized";

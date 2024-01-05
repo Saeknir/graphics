@@ -12,7 +12,7 @@
 const static int DEFAULT_HEIGHT = 480;
 const static int DEFAULT_WIDTH = 640;
 
-GLFWwindow* createWindow(int, int, GLFWwindow*);
-GLFWwindow* createWindow(GLFWwindow*);
-GLFWwindow* initializeWindow(GLFWwindow*);
+GLFWwindow* createWindow(int, int);
+GLFWwindow* createWindow();
+GLFWwindow* initializeWindow();
 #endif

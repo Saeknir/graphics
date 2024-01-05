@@ -1,6 +1,8 @@
 #include "shaders.h"
 
-unsigned int createVertexShader( unsigned int vertexShader){
+
+unsigned int initializeVertexShader(){
+	unsigned int vertexShader;
 	const char* vertexShaderSource = "#version 330 core\n"
 		"layout (location = 0) in vec3 aPos;\n"
 		"void main()\n"
@@ -20,7 +22,8 @@ unsigned int createVertexShader( unsigned int vertexShader){
 	return vertexShader;
 }
 
-unsigned int createFragmentShader(unsigned int fragmentShader){
+unsigned int initializeFragmentShader(){
+	unsigned int fragmentShader;
 	const char* fragmentShaderSource = "#version 330 core\n"
 		"out vec4 fragColor;\n"
 		"void main()\n"
@@ -33,9 +36,11 @@ unsigned int createFragmentShader(unsigned int fragmentShader){
 	return fragmentShader;
 }
 
-void initializeShaders(unsigned int vertexShader, unsigned int fragmentShader, unsigned int vertexBuffer){
-	glGenBuffers(1, &vertexBuffer);
-	glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
+unsigned int initializeVertexBuffer(){
+	unsigned int tempVertexBuffer;
+	glGenBuffers(1, &tempVertexBuffer);
+	//glBindBuffer(GL_ARRAY_BUFFER, tempVertexBuffer);
+	return tempVertexBuffer;
 }
 
 void createShaderProgram(){
