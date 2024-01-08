@@ -51,8 +51,8 @@ GLFWwindow* initializeWindow(){
 			std::string key = line.substr(0, delimPos);
 			std::string value = line.substr(delimPos+1, endPos);
 		if(key=="opengl"){ 
-				glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, (int)value.front());
-				glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, (int)value.back());
+				//glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, (int)value.front());
+				//glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, (int)value.back());
 		}else if(key == "width"){
 			       width = std::stoi(value);	       
 				break;
@@ -61,13 +61,17 @@ GLFWwindow* initializeWindow(){
 				break;
 		}else{
 				if(valueMap.count(value)==1){
-					glfwWindowHint(windowMap[key], valueMap[value]);
+					//glfwWindowHint(windowMap[key], valueMap[value]);
 				}else{
-					glfwWindowHint(windowMap[key], std::stoi(value));
+					//glfwWindowHint(windowMap[key], std::stoi(value));
 				}
 		}
 		}
 		config.close();
+		/*glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+		glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GLFW_TRUE);
+		glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);*/
 	}else{
 		std::cout << "Config not found";
 	}

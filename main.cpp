@@ -8,14 +8,12 @@ int main(){
 	};
 
 	unsigned int vertexBuffer;
-	unsigned int fragmentShader;
-	unsigned int vertexShader;
-	unsigned int geometryShader;
+	unsigned int shaderProgram;
 	GLFWwindow* window;
-
-
+	
 	if(!glfwInit())
 		return -1;
+	
 	window = initializeWindow();
 	GLenum err = glewInit();
 	if(GLEW_OK != err){
@@ -23,9 +21,8 @@ int main(){
 		return -1;
 	}
 	vertexBuffer = initializeVertexBuffer(); 
-	fragmentShader = initializeFragmentShader();
-	vertexShader = initializeVertexShader();
-
+	shaderProgram = initializeShaderProgram();
+	glUseProgram(shaderProgram);
 	if(!window){
 		std::cout << "Window not initialized";
 		glfwTerminate();

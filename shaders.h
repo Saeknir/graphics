@@ -7,16 +7,8 @@
 
 const static unsigned int LOG_CHAR_SIZE = 512;
 
-extern unsigned int vertexBuffer;
-
-extern unsigned int fragmentShader;
-extern unsigned int vertexShader;
-extern unsigned int geometryShader;
-
-extern unsigned int shaderProgram;
-
 unsigned int initializeVertexShader();
 unsigned int initializeFragmentShader();
 unsigned int initializeVertexBuffer();
-
+unsigned int initializeShaderProgram();
 #endif
