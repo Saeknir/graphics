@@ -46,8 +46,20 @@ unsigned int initializeFragmentShader(){
 unsigned int initializeVertexBuffer(){
 	unsigned int tempVertexBuffer;
 	glGenBuffers(1, &tempVertexBuffer);
-	glBindBuffer(GL_ARRAY_BUFFER, tempVertexBuffer);
 	return tempVertexBuffer;
+}
+
+unsigned int initializeVertexArray(unsigned int vertexBuffer){
+	unsigned int vertexArray;	
+	glGenVertexArrays(1, &vertexArray);
+	return vertexArray;
+}
+
+void bindVertexArray(unsigned int vertexArray, unsigned int vertexBuffer){
+	glBindVertexArray(vertexArray);
+	glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3*sizeof(float), (void*)0);
+	glEnableVertexAttribArray(0);
 }
 
 unsigned int initializeShaderProgram(){
@@ -68,5 +80,7 @@ unsigned int initializeShaderProgram(){
 	}
 	glDeleteShader(vertexShader);
 	glDeleteShader(fragmentShader);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void *)0);
+	glEnableVertexAttribArray(0);
 	return shaderProgram;
 }
