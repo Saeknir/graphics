@@ -73,7 +73,7 @@ GLFWwindow* initializeWindow(){
 		glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GLFW_TRUE);
 		glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);*/
 	}else{
-		std::cout << "Config not found";
+		std::cout << "Config not found" << std::endl;
 	}
 	return createWindow(width, height);
 }

@@ -4,6 +4,10 @@
 #include <GL/gl.h>
 #include <GLFW/glfw3.h>
 #include <iostream>
+#include <fstream>
+#include <sstream>
+#include <vector>
+#include <string>
 
 const static unsigned int LOG_CHAR_SIZE = 512;
 

@@ -1,15 +1,24 @@
 #include "shaders.h"
 
+std::string loadShader(std::string path, std::string shaderType){
+	std::stringstream readIn;
+	std::ifstream fileRead(path, std::ios::in);
+	if(!fileRead.is_open()){
+		std::cout << "Failed to read from shader file for: " << shaderType << std::endl;
+		exit(EXIT_FAILURE);
+	}
+	readIn << fileRead.rdbuf();
+	std::string file = readIn.str();
+	return file;
+	
+}
 
 unsigned int initializeVertexShader(){
 	unsigned int vertexShader;
-	const char* vertexShaderSource = "#version 330 core\n"
-  	  	"layout (location = 0) in vec3 aPos;\n"
-  		"void main()\n"
-  		"{\n"
-  		"   gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);\n"
-   		"}\0";
+	const char* vertexShaderSource; 
+	std::string readIn = loadShader("vertexShader.vert", "vertex");
 	vertexShader = glCreateShader(GL_VERTEX_SHADER);
+	vertexShaderSource = readIn.c_str();
 	glShaderSource(vertexShader, 1, &vertexShaderSource, NULL);
 	glCompileShader(vertexShader);
 	int success;
@@ -24,12 +33,9 @@ unsigned int initializeVertexShader(){
 
 unsigned int initializeFragmentShader(){
 	unsigned int fragmentShader;
-	const char* fragmentShaderSource = "#version 330 core\n"
-		"out vec4 fragColor;\n"
-		"void main()\n"
-		"{\n"
-		"	fragColor = vec4(1.0f, 0.5f, 0.2f, 1.0f);\n"
-		"}\0";
+	const char* fragmentShaderSource;
+	std::string readIn = loadShader("fragmentShader.frag", "fragment");
+        fragmentShaderSource = readIn.c_str();	
 	fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
 	glShaderSource(fragmentShader, 1, &fragmentShaderSource, NULL);
 	glCompileShader(fragmentShader);
