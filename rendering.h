@@ -3,7 +3,8 @@
 #include <GL/glew.h>
 #include <GL/gl.h>
 #include <GLFW/glfw3.h>
+#include <vector>
 
-void frameRefresh(float[]);
+void frameRefresh(std::vector<float>);
 
 #endif
