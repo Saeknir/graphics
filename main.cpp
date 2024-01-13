@@ -2,11 +2,15 @@
 
 Primitive::Primitive(){
 	this->vertices = {
-		//Position		//texture Coordinates
-		0.5f, 0.5f, 0.0f,	1.0f, 1.0f, 
-		0.5f, -0.5f, 0.0f,	1.0f, 0.0f, 
-		-0.5f, -0.5f, 0.0f,	0.0f, 0.0f, 
-		0.0f, 0.5f, 0.0f,	0.0f, 1.0f	
+		//Position		//color			//texture Coordinates
+		0.5f, 0.5f, 0.0f,	//1.0f, 0.0f, 0.0f,//	1.0f, 1.0f, 		
+		0.5f, -0.5f, 0.0f,	//0.0f, 1.0f, 0.0f,// 	1.0f, 0.0f, 
+		-0.5f, -0.5f, 0.0f,	//0.0f, 0.0f, 1.0f,//	0.0f, 0.0f, 
+		-0.5f, 0.5f, 0.0f//,	1.0f, 1.0f, 0.0f//,	0.0f, 1.0f	
+	};
+	this->indices = {
+		0, 1, 3, 
+		1, 2, 3
 	};
 }
 
@@ -18,16 +22,25 @@ void Primitive::setVertices(std::vector<float> newVert){
 	this->vertices = newVert;
 }
 
-unsigned int Primitive::getTexture(){
+std::vector<unsigned int> Primitive::getIndices(){
+	return this->indices;
+}
+
+void Primitive::setIndices(std::vector<unsigned int> newIndex){
+	this->indices = newIndex;
+}
+
+Texture Primitive::getTexture(){
 	return this->texture;
 }
 
-void Primitive::setTexture(unsigned int newTexture){
+/*void Primitive::setTexture(Texture newTexture){
 	this->texture = newTexture;
-}
+}*/
 
 int main(){
 	Primitive mainPrim;
+	unsigned int elementBuffer;
 	unsigned int vertexBuffer;
 	unsigned int vertexArray;
 	unsigned int shaderProgram;
@@ -42,18 +55,24 @@ int main(){
 		return -1;
 	}
 	vertexBuffer = initializeVertexBuffer(); 
+	elementBuffer = initializeElementBuffer();
 	shaderProgram = initializeShaderProgram();
 	vertexArray = initializeVertexArray(vertexBuffer);
 	bindVertexArray(vertexArray, vertexBuffer);	
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, elementBuffer);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, mainPrim.getIndices().size()*sizeof(unsigned int), static_cast<void*>(mainPrim.getIndices().data()), GL_STATIC_DRAW);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3*sizeof(float), (void*)0);
 	glBufferData(GL_ARRAY_BUFFER, mainPrim.getVertices().size() * sizeof(GLfloat), static_cast<void*>(mainPrim.getVertices().data()), GL_STATIC_DRAW);
+	glEnableVertexAttribArray(0);
 	glUseProgram(shaderProgram);
+	//initializeTextures();
 	if(!window){
 		std::cout << "Window not initialized";
 		glfwTerminate();
 		return -1;
 	}
 	while(!glfwWindowShouldClose(window)){	
-		frameRefresh(mainPrim.getVertices());
+		frameRefresh(shaderProgram, vertexArray, elementBuffer);
 		glfwSwapBuffers(window);
 	
 		glfwPollEvents();	

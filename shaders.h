@@ -14,6 +14,7 @@ const static unsigned int LOG_CHAR_SIZE = 512;
 unsigned int initializeVertexShader();
 unsigned int initializeFragmentShader();
 unsigned int initializeVertexBuffer();
+unsigned int initializeElementBuffer();
 unsigned int initializeShaderProgram();
 void bindVertexArray(unsigned int, unsigned int);
 unsigned int initializeVertexArray(unsigned int);

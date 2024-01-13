@@ -10,20 +10,25 @@
 #include "window.h"
 #include "rendering.h"
 #include "shaders.h"
+#include "textures.h"
 #include "geometry.h"
 
 GLFWwindow* window;
 
 class Primitive{
 	private:
-		unsigned int texture;
+		Texture texture;
 		std::vector<float>vertices;
+		std::vector<unsigned int> indices;
 	public: 
 		Primitive();
 		void setVertices(std::vector<float>);
 		std::vector<float> getVertices();
-		void setTexture(unsigned int);
-		unsigned int getTexture();
+		void setIndices(std::vector<unsigned int>);
+		std::vector<unsigned int> getIndices();
+		void setTexture(unsigned int, unsigned int, unsigned int, unsigned int);
+		void setTexture(Texture);
+		Texture getTexture();
 };
 
 #endif

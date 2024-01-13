@@ -7,6 +7,7 @@ add_executable(${PROJECT_NAME}
 	rendering.cpp
 	shaders.cpp
 	main.cpp
+	textures.cpp
 	)
 
 find_package(OpenGL REQUIRED)

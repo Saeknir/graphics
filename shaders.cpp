@@ -4,13 +4,19 @@ std::string loadShader(std::string path, std::string shaderType){
 	std::stringstream readIn;
 	std::ifstream fileRead(path, std::ios::in);
 	if(!fileRead.is_open()){
-		std::cout << "Failed to read from shader file for: " << shaderType << std::endl;
+		std::cout << "Error: Failed to read from shader file for: " << shaderType << std::endl;
 		glfwTerminate();
 	}
 	readIn << fileRead.rdbuf();
 	std::string file = readIn.str();
 	return file;
 	
+}
+
+unsigned int initializeElementBuffer(){
+	unsigned int tempElementBuffer;
+	glGenBuffers(1, &tempElementBuffer);
+	return tempElementBuffer;
 }
 
 unsigned int initializeVertexShader(){
@@ -26,7 +32,7 @@ unsigned int initializeVertexShader(){
 	glGetShaderiv(vertexShader, GL_COMPILE_STATUS, &success);
 	if(!success){
 		glGetShaderInfoLog(vertexShader, LOG_CHAR_SIZE, NULL, log);
-		std::cout << "Error: Shader Vertex failed to compile\n" << log << std::endl;
+		std::cout << "Error: Vertex Shader failed to compile\n" << log << std::endl;
 	}
 	return vertexShader;
 }
@@ -64,7 +70,7 @@ unsigned int initializeVertexArray(unsigned int vertexBuffer){
 void bindVertexArray(unsigned int vertexArray, unsigned int vertexBuffer){
 	glBindVertexArray(vertexArray);
 	glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5*sizeof(float), (void*)0);
+	//glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3*sizeof(float), (void*)0);
 	glEnableVertexAttribArray(0);
 }
 
@@ -86,7 +92,7 @@ unsigned int initializeShaderProgram(){
 	}
 	glDeleteShader(vertexShader);
 	glDeleteShader(fragmentShader);
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void *)0);
+	//glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void *)0);
 	glEnableVertexAttribArray(0);
 	return shaderProgram;
 }
