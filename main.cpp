@@ -3,10 +3,10 @@
 Primitive::Primitive(){
 	this->vertices = {
 		//Position		//color			//texture Coordinates
-		0.5f, 0.5f, 0.0f,	//1.0f, 0.0f, 0.0f,//	1.0f, 1.0f, 		
-		0.5f, -0.5f, 0.0f,	//0.0f, 1.0f, 0.0f,// 	1.0f, 0.0f, 
-		-0.5f, -0.5f, 0.0f,	//0.0f, 0.0f, 1.0f,//	0.0f, 0.0f, 
-		-0.5f, 0.5f, 0.0f//,	1.0f, 1.0f, 0.0f//,	0.0f, 1.0f	
+		0.5f, 0.5f, 0.0f,	1.0f, 0.0f, 0.0f,	1.0f, 1.0f, 		
+		0.5f, -0.5f, 0.0f,	0.0f, 1.0f, 0.0f, 	1.0f, 0.0f, 
+		-0.5f, -0.5f, 0.0f,	0.0f, 0.0f, 1.0f,	0.0f, 0.0f, 
+		-0.5f, 0.5f, 0.0f,	1.0f, 1.0f, 0.0f,	0.0f, 1.0f,
 	};
 	this->indices = {
 		0, 1, 3, 
@@ -38,6 +38,18 @@ Texture Primitive::getTexture(){
 	this->texture = newTexture;
 }*/
 
+void vertexAttributes(){
+	//Position Attributes
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8*sizeof(float), (void*)0);
+	glEnableVertexAttribArray(0);
+	//Color Attributes
+	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8*sizeof(float), (void*)(3*sizeof(float)));
+	glEnableVertexAttribArray(1);
+	//Texture Position Attributes
+	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8*sizeof(float), (void*)(6*sizeof(float)));
+	glEnableVertexAttribArray(2);
+}
+
 int main(){
 	Primitive mainPrim;
 	unsigned int elementBuffer;
@@ -61,9 +73,10 @@ int main(){
 	bindVertexArray(vertexArray, vertexBuffer);	
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, elementBuffer);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, mainPrim.getIndices().size()*sizeof(unsigned int), static_cast<void*>(mainPrim.getIndices().data()), GL_STATIC_DRAW);
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3*sizeof(float), (void*)0);
+	vertexAttributes();
+	//glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3*sizeof(float), (void*)0);
 	glBufferData(GL_ARRAY_BUFFER, mainPrim.getVertices().size() * sizeof(GLfloat), static_cast<void*>(mainPrim.getVertices().data()), GL_STATIC_DRAW);
-	glEnableVertexAttribArray(0);
+	//glEnableVertexAttribArray(0);
 	glUseProgram(shaderProgram);
 	//initializeTextures();
 	if(!window){

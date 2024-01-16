@@ -5,6 +5,7 @@
 #include <GLFW/glfw3.h>
 #include <vector>
 #include <iostream>
+#include <cmath>
 
 void frameRefresh(unsigned int, unsigned int, unsigned int);
 
