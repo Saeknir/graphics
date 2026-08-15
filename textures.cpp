@@ -2,6 +2,13 @@
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
 
+void Texture::setTextureID(unsigned int newID){
+	this->textureID = newID;
+}
+
+unsigned int Texture::getTextureID(){
+	return this->textureID;
+}
 
 void initializeTextures(){
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
@@ -12,7 +19,7 @@ void initializeTextures(){
 	glEnableVertexAttribArray(2);
 }
 
-void loadTexture(std::string fileName, Texture textureLoad){
+unsigned int loadTexture(std::string fileName){
 	unsigned int texture;
 	int width, height, nbrChannels;
 	unsigned char* data;
@@ -26,4 +33,5 @@ void loadTexture(std::string fileName, Texture textureLoad){
 		std::cout << "Failed to load texture: " << fileName;
 	}
 	stbi_image_free(data);
+	return texture;
 }

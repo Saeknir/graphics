@@ -5,7 +5,7 @@ void bindVertexArray(){
 }
 
 //Operations to reset the rendered window for each frame.
-void frameRefresh(unsigned int shaderProgram, unsigned int vertexArray, unsigned int indexArray){
+void frameRefresh(unsigned int shaderProgram, unsigned int vertexArray, unsigned int indexArray, unsigned int texture){
 	glUseProgram(shaderProgram);
 	glBindVertexArray(vertexArray);
 	glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
@@ -15,7 +15,8 @@ void frameRefresh(unsigned int shaderProgram, unsigned int vertexArray, unsigned
 	float greenValue = sin(time)/2.0f+0.5f;
 	int vertexColorLocation = glGetUniformLocation(shaderProgram, "vertexColor");
 	glUniform4f(vertexColorLocation, 0.0f, greenValue, 0.0f, 1.0f);
-
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, texture);
 	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 	glBindVertexArray(0);
 }

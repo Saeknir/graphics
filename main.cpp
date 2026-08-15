@@ -34,9 +34,9 @@ Texture Primitive::getTexture(){
 	return this->texture;
 }
 
-/*void Primitive::setTexture(Texture newTexture){
+void Primitive::setTexture(Texture newTexture){
 	this->texture = newTexture;
-}*/
+}
 
 void vertexAttributes(){
 	//Position Attributes
@@ -74,18 +74,19 @@ int main(){
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, elementBuffer);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, mainPrim.getIndices().size()*sizeof(unsigned int), static_cast<void*>(mainPrim.getIndices().data()), GL_STATIC_DRAW);
 	vertexAttributes();
-	//glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3*sizeof(float), (void*)0);
+	//glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8*sizeof(float), (void*)(6*sizeof(float)));
 	glBufferData(GL_ARRAY_BUFFER, mainPrim.getVertices().size() * sizeof(GLfloat), static_cast<void*>(mainPrim.getVertices().data()), GL_STATIC_DRAW);
-	//glEnableVertexAttribArray(0);
+	//glEnableVertexAttribArray(2);
 	glUseProgram(shaderProgram);
-	//initializeTextures();
+	initializeTextures();
+	mainPrim.getTexture().setTextureID(loadTexture("tex.jpg"));
 	if(!window){
 		std::cout << "Window not initialized";
 		glfwTerminate();
 		return -1;
 	}
 	while(!glfwWindowShouldClose(window)){	
-		frameRefresh(shaderProgram, vertexArray, elementBuffer);
+		frameRefresh(shaderProgram, vertexArray, elementBuffer, mainPrim.getTexture().getTextureID());
 		glfwSwapBuffers(window);
 	
 		glfwPollEvents();	

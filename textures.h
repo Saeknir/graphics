@@ -25,5 +25,5 @@ class Texture{
 };
 
 void initializeTextures();
-
+unsigned int loadTexture(std::string);
 #endif

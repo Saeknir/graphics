@@ -7,6 +7,6 @@
 #include <iostream>
 #include <cmath>
 
-void frameRefresh(unsigned int, unsigned int, unsigned int);
+void frameRefresh(unsigned int, unsigned int, unsigned int, unsigned int);
 
 #endif
