@@ -19,7 +19,7 @@ std::map<std::string, GLuint> valueMap = {
 	{"FALSE", GL_FALSE}
 };
 			
-//Initialize the window
+//Create the initial window
 GLFWwindow* createWindow(int width, int height){
 	GLFWwindow* window = glfwCreateWindow(width, height, "Frankengraphics", NULL, NULL);
 	if(window == NULL){
