@@ -36,7 +36,7 @@ class Primitive{
 		std::vector<unsigned int> getIndices();
 		void setTexture(unsigned int, unsigned int, unsigned int, unsigned int);
 		void setTexture(Texture);
-		Texture getTexture();
+		Texture& getTexture();
 };
 
 #endif

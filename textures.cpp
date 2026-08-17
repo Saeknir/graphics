@@ -33,5 +33,6 @@ unsigned int loadTexture(std::string fileName){
 		std::cout << "Failed to load texture: " << fileName;
 	}
 	stbi_image_free(data);
+	std::cout << texture;
 	return texture;
 }
