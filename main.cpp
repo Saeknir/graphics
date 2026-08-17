@@ -59,8 +59,9 @@ int main(){
 	unsigned int vertexBuffer;
 	unsigned int vertexArray;
 	unsigned int shaderProgram;
+	glm::mat4 transform;
 	GLFWwindow* window;
-	
+	//Initialize window
 	if(!glfwInit())
 		return -1;
 	window = initializeWindow();
@@ -74,23 +75,20 @@ int main(){
 	elementBuffer = initializeElementBuffer();
 	shaderProgram = initializeShaderProgram();
 	vertexArray = initializeVertexArray(vertexBuffer);
-	initializeTextures();
+	initializeTextures();	
+	unsigned int transformLoc = glGetUniformLocation(shaderProgram, "transform");
 	bindVertexArray(vertexArray, vertexBuffer);	
 	//vertexAttributes();
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, elementBuffer);
 	//Iterate through the list of primitives, then append the vertices into a master vertices list.
 	for(const auto& i : primitiveList){
-		
-		//for(int v = 0; v < primitiveList[i].getVertices()size(); ++v){
-		//	masterVerticesList.push_back(v);
-		//}
-	
+		//Copy memory from ram to GPU
 		glBufferData(GL_ELEMENT_ARRAY_BUFFER, mainPrim.getIndices().size()*sizeof(unsigned int), static_cast<void*>(mainPrim.getIndices().data()), GL_STATIC_DRAW);
-	//vertexAttributes();
-	//glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8*sizeof(float), (void*)(6*sizeof(float)));
 		glBufferData(GL_ARRAY_BUFFER, mainPrim.getVertices().size() * sizeof(GLfloat), static_cast<void*>(mainPrim.getVertices().data()), GL_STATIC_DRAW);
 	}
-		//glEnableVertexAttribArray(2);
+	transform = rotate(M_PI/2);
+	glUniformMatrix4fv(transformLoc, 1, GL_FALSE, glm::value_ptr(transform));
+	//glEnableVertexAttribArray(2);
 	vertexAttributes();
 	glUseProgram(shaderProgram);
 	mainPrim.getTexture().setTextureID(loadTexture("tex.jpg"));
