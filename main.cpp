@@ -60,6 +60,9 @@ int main(){
 	unsigned int vertexArray;
 	unsigned int shaderProgram;
 	glm::mat4 transform;
+	glm::mat4 model;
+	glm::mat4 view;
+	glm::mat4 projection;
 	GLFWwindow* window;
 	//Initialize window
 	if(!glfwInit())
@@ -70,6 +73,7 @@ int main(){
 		std::cout << "Error: GLEW failed to initialize.";
 		return -1;
 	}
+	
 	//initialize settings and buffers.
 	vertexBuffer = initializeVertexBuffer(); 
 	elementBuffer = initializeElementBuffer();
@@ -80,18 +84,19 @@ int main(){
 	bindVertexArray(vertexArray, vertexBuffer);	
 	//vertexAttributes();
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, elementBuffer);
+
 	//Iterate through the list of primitives, then append the vertices into a master vertices list.
 	for(auto& i : primitiveList){
 		//Copy memory from ram to GPU
 		glBufferData(GL_ELEMENT_ARRAY_BUFFER, i.getIndices().size()*sizeof(unsigned int), static_cast<void*>(i.getIndices().data()), GL_STATIC_DRAW);
 		glBufferData(GL_ARRAY_BUFFER, i.getVertices().size() * sizeof(GLfloat), static_cast<void*>(i.getVertices().data()), GL_STATIC_DRAW);
 	}
-	transform = rotate(M_PI/2);
+
+	//Initialize transforms
 	glUniformMatrix4fv(transformLoc, 1, GL_FALSE, glm::value_ptr(transform));
 	//glEnableVertexAttribArray(2);
 	vertexAttributes();
 	glUseProgram(shaderProgram);
-	std::cout << loadTexture("tex.jpg");
 	mainPrim.getTexture().setTextureID(loadTexture("tex.jpg"));
 	//std::cout << mainPrim.getTexture().getTextureID();
 	if(!window){

@@ -10,6 +10,8 @@
 #include <iostream>
 #include <cmath>
 
+#include "geometry.h"
+
 void frameRefresh(unsigned int, unsigned int, unsigned int, unsigned int);
 
 #endif
