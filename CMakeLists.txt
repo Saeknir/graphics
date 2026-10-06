@@ -9,6 +9,7 @@ add_executable(${PROJECT_NAME}
 	main.cpp
 	textures.cpp
 	geometry.cpp
+	camera.cpp
 	)
 
 find_package(OpenGL REQUIRED)

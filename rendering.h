@@ -11,7 +11,8 @@
 #include <cmath>
 
 #include "geometry.h"
+#include "camera.h"
 
-void frameRefresh(unsigned int, unsigned int, unsigned int, unsigned int);
+void frameRefresh(unsigned int, unsigned int, unsigned int, unsigned int, Camera);
 
 #endif

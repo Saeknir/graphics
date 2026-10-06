@@ -53,6 +53,7 @@ void vertexAttributes(){
 int main(){
 	std::vector<Primitive> primitiveList;
 	Primitive mainPrim;
+	Camera mainCam;
 	primitiveList.push_back(mainPrim);
 	std::vector<float> masterVerticesList;
 	unsigned int elementBuffer;
@@ -105,7 +106,7 @@ int main(){
 		return -1;
 	}
 	while(!glfwWindowShouldClose(window)){	
-		frameRefresh(shaderProgram, vertexArray, elementBuffer, mainPrim.getTexture().getTextureID());
+		frameRefresh(shaderProgram, vertexArray, elementBuffer, mainPrim.getTexture().getTextureID(), mainCam);
 		glfwSwapBuffers(window);
 	
 		glfwPollEvents();	

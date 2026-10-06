@@ -14,19 +14,19 @@
 #include <vector>
 #include <math.h>
 
-#include "interface.h"
 #include "window.h"
 #include "rendering.h"
 #include "shaders.h"
 #include "textures.h"
 #include "geometry.h"
+#include "camera.h"
 
 GLFWwindow* window;
 
 class Primitive{
 	private:
 		Texture texture;
-		std::vector<float>vertices;
+		std::vector<float> vertices;
 		std::vector<unsigned int> indices;
 	public: 
 		Primitive();

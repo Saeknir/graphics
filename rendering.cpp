@@ -5,7 +5,7 @@ void bindVertexArray(){
 }
 
 //Operations to reset the rendered window for each frame.
-void frameRefresh(unsigned int shaderProgram, unsigned int vertexArray, unsigned int indexArray, unsigned int texture){
+void frameRefresh(unsigned int shaderProgram, unsigned int vertexArray, unsigned int indexArray, unsigned int texture, Camera viewCamera){
 	glUseProgram(shaderProgram);
 	glBindVertexArray(vertexArray);
 	glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
@@ -21,6 +21,9 @@ void frameRefresh(unsigned int shaderProgram, unsigned int vertexArray, unsigned
 	model = glm::rotate(model, glm::radians(-55.0f), glm::vec3(1.0f, 0.0f, 0.0f));
 	projection = perspectiveMatrix(45.0f, 800.0f, 600.0f);
 	view = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f));
+	//Temporary camera testing
+	viewCamera.setPos(glm::vec3(sin(glfwGetTime()*10.0f), 0.0f, cos(glfwGetTime()*10.0f)));
+	view = viewCamera.getView();
 	int modelLoc = glGetUniformLocation(shaderProgram, "model");
 	int projectionLoc = glGetUniformLocation(shaderProgram, "projection");
 	int viewLoc = glGetUniformLocation(shaderProgram, "view");
