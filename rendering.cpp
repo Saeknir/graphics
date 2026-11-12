@@ -22,7 +22,7 @@ void frameRefresh(unsigned int shaderProgram, unsigned int vertexArray, unsigned
 	projection = perspectiveMatrix(45.0f, 800.0f, 600.0f);
 	view = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f));
 	//Temporary camera testing
-	viewCamera.setPos(glm::vec3(sin(glfwGetTime()*10.0f), 0.0f, cos(glfwGetTime()*10.0f)));
+	//viewCamera.setPos(glm::vec3(sin(glfwGetTime()*10.0f), 0.0f, cos(glfwGetTime()*10.0f)));
 	view = viewCamera.getView();
 	int modelLoc = glGetUniformLocation(shaderProgram, "model");
 	int projectionLoc = glGetUniformLocation(shaderProgram, "projection");

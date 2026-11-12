@@ -77,3 +77,21 @@ GLFWwindow* initializeWindow(){
 	}
 	return createWindow(width, height);
 }
+
+void processInput(GLFWwindow* window, float speed, Camera* camera){
+	if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
+		camera->setPos(camera->getPos() - camera->getDirection()*speed);
+	if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
+		camera->setPos(camera->getPos() + camera->getDirection()*speed);
+	if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
+		camera->setPos(camera->getPos() - glm::normalize(glm::cross(camera->getDirection(), camera->getUp()))*speed);
+	if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
+		camera->setPos(camera->getPos() + glm::normalize(glm::cross(camera->getDirection(), camera->getUp()))*speed);
+
+}
+
+void processInput(GLFWwindow* window, Camera* camera){
+	processInput(window, DEFAULT_SPEED, camera);
+}
+
+

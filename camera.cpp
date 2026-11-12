@@ -3,6 +3,11 @@
 Camera::Camera(){
 	this->pos = glm::vec3(0.0f, 0.0f, 1.0f);
 	this->target = glm::vec3(0.0f, 0.0f, 0.0f);
+	this->up = glm::vec3(0.0f, 1.0f, 0.0f);
+}
+
+glm::vec3 Camera::getDirection(){
+	return glm::normalize(pos-target);
 }
 
 glm::vec3 Camera::getPos(){
@@ -10,6 +15,7 @@ glm::vec3 Camera::getPos(){
 }
 
 void Camera::setPos(glm::vec3 newPos){
+	this->target = newPos-this->getDirection();
 	this->pos = newPos;
 }
 
@@ -21,12 +27,16 @@ void Camera::setTarget(glm::vec3 newTarget){
 	this->target = newTarget;
 }
 
+glm::vec3 Camera::getUp(){
+	return this->up;
+}
+
 glm::mat4 Camera::getView(){
 	glm::vec3 cameraDirection = glm::normalize(getPos()-getTarget());
 	//Default view will align to a standard up direction, will implement method to accept rotation.
 	glm::vec3 up = glm::vec3(0.0f, 1.0f, 0.0f);
 	//glm::vec3 cameraRight = glm::normalize(glm::cross(up, cameraDirection);
 	//glm::vec3 CameraUp = glm::cross(cameraDirection, cameraRight);
-	return glm::lookAt(getPos(), getTarget(), up);
+	return glm::lookAt(getPos(), getTarget(), getUp());
 }
 

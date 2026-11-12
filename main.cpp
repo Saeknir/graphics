@@ -106,6 +106,7 @@ int main(){
 		return -1;
 	}
 	while(!glfwWindowShouldClose(window)){	
+		processInput(window, &mainCam); 
 		frameRefresh(shaderProgram, vertexArray, elementBuffer, mainPrim.getTexture().getTextureID(), mainCam);
 		glfwSwapBuffers(window);
 	
