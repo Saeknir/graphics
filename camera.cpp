@@ -4,10 +4,16 @@ Camera::Camera(){
 	this->pos = glm::vec3(0.0f, 0.0f, 1.0f);
 	this->target = glm::vec3(0.0f, 0.0f, 0.0f);
 	this->up = glm::vec3(0.0f, 1.0f, 0.0f);
+	this->yaw = 0;
+	this->pitch = 0;
 }
 
 glm::vec3 Camera::getDirection(){
 	return glm::normalize(pos-target);
+}
+
+void Camera::setDirection(glm::vec3 newDirection){
+	this-> target = glm::normalize(pos+newDirection);
 }
 
 glm::vec3 Camera::getPos(){
@@ -39,4 +45,21 @@ glm::mat4 Camera::getView(){
 	//glm::vec3 CameraUp = glm::cross(cameraDirection, cameraRight);
 	return glm::lookAt(getPos(), getTarget(), getUp());
 }
+
+float Camera::getPitch(){
+	return this->pitch;
+}
+
+void Camera::setPitch(float newPitch){
+	this->pitch = newPitch;
+}
+
+float Camera::getYaw(){
+	return this->yaw;
+}
+
+void Camera::setYaw(float newYaw){
+	this->yaw = newYaw;
+}
+
 

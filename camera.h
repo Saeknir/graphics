@@ -8,12 +8,13 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
-
 class Camera{
 	private:
 		glm::vec3 pos;
 		glm::vec3 target;
 		glm::vec3 up;
+		float pitch;
+		float yaw;
 	public:
 		Camera();
 		glm::vec3 getPos();
@@ -23,6 +24,13 @@ class Camera{
 		glm::vec3 getUp();
 		glm::mat4 getView();
 		glm::vec3 getDirection();
+		void setDirection(glm::vec3);
+		float getPitch();
+		void setPitch(float);
+		float getYaw();
+		void setYaw(float);
 };
+
+inline Camera* activeCamera;
 
 #endif

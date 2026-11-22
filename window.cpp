@@ -94,4 +94,24 @@ void processInput(GLFWwindow* window, Camera* camera){
 	processInput(window, DEFAULT_SPEED, camera);
 }
 
-
+void mouseCallback(GLFWwindow* window, double xPos, double yPos){
+	int width, height;
+	glfwGetWindowSize(window, &width, &height);
+	float hCenter = width/2;
+	float vCenter = height/2;
+	
+	float sensitivity = 0.01f;
+	float xOffset = xPos - hCenter;
+	float yOffset = vCenter - yPos;
+	xOffset *= sensitivity;
+	yOffset *= sensitivity;
+	std::cout << xOffset << " " << yOffset << std::endl;
+	activeCamera->setYaw(activeCamera->getYaw() + xOffset);
+	activeCamera->setPitch(activeCamera->getPitch() + yOffset);
+	glm::vec3 direction;
+	direction.x = cos(glm::radians(activeCamera->getYaw())) * cos(glm::radians(activeCamera->getPitch()));
+	direction.y = sin(glm::radians(activeCamera->getPitch()));
+	direction.z = sin(glm::radians(activeCamera->getYaw())) * cos(glm::radians(activeCamera->getPitch()));
+	activeCamera->setDirection(direction);
+	std::cout << direction.x << " " << direction.y << " " << direction.z << std::endl;	
+}

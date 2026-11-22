@@ -21,5 +21,5 @@ GLFWwindow* initializeWindow();
 
 void processInput(GLFWwindow*, float, Camera*);
 void processInput(GLFWwindow*, Camera*);
-
+void mouseCallback(GLFWwindow*, double, double);
 #endif

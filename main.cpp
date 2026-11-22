@@ -54,6 +54,7 @@ int main(){
 	std::vector<Primitive> primitiveList;
 	Primitive mainPrim;
 	Camera mainCam;
+	activeCamera = &mainCam;
 	primitiveList.push_back(mainPrim);
 	std::vector<float> masterVerticesList;
 	unsigned int elementBuffer;
@@ -100,6 +101,9 @@ int main(){
 	glUseProgram(shaderProgram);
 	mainPrim.getTexture().setTextureID(loadTexture("tex.jpg"));
 	//std::cout << mainPrim.getTexture().getTextureID();
+	
+	//glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+	glfwSetCursorPosCallback(window, mouseCallback);
 	if(!window){
 		std::cout << "Window not initialized";
 		glfwTerminate();
