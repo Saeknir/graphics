@@ -18,10 +18,30 @@ std::map<std::string, GLuint> valueMap = {
 	{"TRUE", GL_TRUE},
 	{"FALSE", GL_FALSE}
 };
-			
+
+//Input class handles variables required for keyboard and mouse input.
+void Input::setLastX(float newX){
+	this->lastX = newX;
+}
+
+float Input::getLastX(){
+	return lastX;
+}
+
+void Input::setLastY(float newY){
+	this->lastY = newY;
+}
+
+float Input::getLastY(){
+	return lastY;
+}
+
+
 //Create the initial window
 GLFWwindow* createWindow(int width, int height){
 	GLFWwindow* window = glfwCreateWindow(width, height, "Frankengraphics", NULL, NULL);
+	Input* inputHandler = new Input;
+	glfwSetWindowUserPointer(window, inputHandler);
 	if(window == NULL){
 		std::cout << "failed to create GLFW window" << std::endl;
 		glfwTerminate();
@@ -97,15 +117,18 @@ void processInput(GLFWwindow* window, Camera* camera){
 void mouseCallback(GLFWwindow* window, double xPos, double yPos){
 	int width, height;
 	glfwGetWindowSize(window, &width, &height);
-	float hCenter = width/2;
-	float vCenter = height/2;
+	Input* inputHandler = static_cast<Input*>(glfwGetWindowUserPointer(window));
+	//float hCenter = width/2;
+	//float vCenter = height/2;
 	
-	float sensitivity = 0.01f;
-	float xOffset = xPos - hCenter;
-	float yOffset = vCenter - yPos;
+	float sensitivity = 0.1f;
+	float xOffset = xPos - inputHandler->getLastX();
+	float yOffset = inputHandler->getLastY() - yPos;
 	xOffset *= sensitivity;
 	yOffset *= sensitivity;
-	std::cout << xOffset << " " << yOffset << std::endl;
+	inputHandler->setLastX(xPos);
+	inputHandler->setLastY(yPos);
+	std::cout << "Offsets: "  << xOffset << " " << yOffset << std::endl;
 	activeCamera->setYaw(activeCamera->getYaw() + xOffset);
 	activeCamera->setPitch(activeCamera->getPitch() + yOffset);
 	glm::vec3 direction;
@@ -113,5 +136,5 @@ void mouseCallback(GLFWwindow* window, double xPos, double yPos){
 	direction.y = sin(glm::radians(activeCamera->getPitch()));
 	direction.z = sin(glm::radians(activeCamera->getYaw())) * cos(glm::radians(activeCamera->getPitch()));
 	activeCamera->setDirection(direction);
-	std::cout << direction.x << " " << direction.y << " " << direction.z << std::endl;	
+	std::cout << "target: " << activeCamera->getTarget().x+activeCamera->getPos().x << "," << activeCamera->getTarget().y+activeCamera->getPos().y << "," << activeCamera->getTarget().z+activeCamera->getPos().z << "Direction: "  << std::endl;	
 }

@@ -13,7 +13,7 @@ glm::vec3 Camera::getDirection(){
 }
 
 void Camera::setDirection(glm::vec3 newDirection){
-	this-> target = glm::normalize(pos+newDirection);
+	this->target = pos+glm::normalize(newDirection);
 }
 
 glm::vec3 Camera::getPos(){
@@ -51,7 +51,10 @@ float Camera::getPitch(){
 }
 
 void Camera::setPitch(float newPitch){
-	this->pitch = newPitch;
+	if(abs(newPitch)>89.9f){
+		
+	}else
+		this->pitch = newPitch;
 }
 
 float Camera::getYaw(){

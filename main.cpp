@@ -102,7 +102,7 @@ int main(){
 	mainPrim.getTexture().setTextureID(loadTexture("tex.jpg"));
 	//std::cout << mainPrim.getTexture().getTextureID();
 	
-	//glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 	glfwSetCursorPosCallback(window, mouseCallback);
 	if(!window){
 		std::cout << "Window not initialized";
